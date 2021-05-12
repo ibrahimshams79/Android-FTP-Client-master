@@ -47,22 +47,22 @@
             >
         </android.support.v7.widget.Toolbar>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Home"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="10dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/textView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Home"-->
+<!--            android:textColor="@color/colorPrimary"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:paddingLeft="10dp"/>-->
 
-        <ListView
-            android:id="@+id/home_List_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:divider="@drawable/list_item_divider"
-            android:dividerHeight="1.2dp"/>
+<!--        <ListView-->
+<!--            android:id="@+id/home_List_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:divider="@drawable/list_item_divider"-->
+<!--            android:dividerHeight="1.2dp"/>-->
 
         <View
             android:layout_height="3dp"

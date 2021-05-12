@@ -17,7 +17,8 @@
             android:id="@+id/folder_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@color/white"/>
 
         <com.baoyz.swipemenulistview.SwipeMenuListView
             android:id="@+id/names_ftpfiles_list_view"

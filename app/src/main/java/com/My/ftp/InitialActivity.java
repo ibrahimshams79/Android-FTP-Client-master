@@ -1,4 +1,4 @@
-package com.tv9.ftp;
+package com.My.ftp;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -132,7 +132,7 @@ public class InitialActivity extends AppCompatActivity {
         toolbar.setTitle("FTP");
         setSupportActionBar(toolbar);
 
-        homeListView = findViewById(R.id.home_List_view);
+//        homeListView = findViewById(R.id.home_List_view);
         homeSimpleAdaptList = new ArrayList<>();
         String[] from1 = {"icon", "name"};
         int[] to1 = {R.id.cell_image, R.id.cell_name};
@@ -142,7 +142,7 @@ public class InitialActivity extends AppCompatActivity {
         hashMap.put("name","Local Home");
         homeSimpleAdaptList.add(hashMap);
         homeSimpleAdapter = new SimpleAdapter(getApplicationContext(), homeSimpleAdaptList, R.layout.cell, from1, to1);
-        homeListView.setAdapter(homeSimpleAdapter);
+//        homeListView.setAdapter(homeSimpleAdapter);
 
         ftpListView = findViewById(R.id.ftp_list_view);
         ftpSimpleAdaptList = new ArrayList<>();
@@ -160,13 +160,13 @@ public class InitialActivity extends AppCompatActivity {
 
     private void setListeners() {
         //编写”我的本地文件“的点击响应事件：页面跳转进入LocalHomeActivity
-        homeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(InitialActivity.this, LocalHomeActivity.class);
-                startActivity(intent);
-            }
-        });
+//        homeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(InitialActivity.this, LocalHomeActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         //编写“ftplistView”的点击监听器：点击相应的view使相应的用户登录ftp
         ftpListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

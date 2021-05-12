@@ -1,4 +1,4 @@
-package com.tv9.ftp;
+package com.My.ftp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

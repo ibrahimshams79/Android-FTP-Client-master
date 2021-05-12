@@ -1,4 +1,4 @@
-package com.tv9.ftp;
+package com.My.ftp;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -100,7 +101,7 @@ public class FolderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_folder);
         initViews();
         setupData();
-        setListener();
+//        setListener();
 
         preferences = getSharedPreferences(UPLOAD_BREAKPOINT_INFO, MODE_PRIVATE);
         editor = preferences.edit();
@@ -222,7 +223,10 @@ public class FolderActivity extends AppCompatActivity {
 //                + File.separator + getPackageName()
 //                + File.separator + "ftpdownload";
 
-        File file1 = new File(getExternalFilesDir("/"), "ftpdownload");
+//        File file1 = new File(getExternalFilesDir("/"), "ftpdownload");
+
+        File file1 = new File (String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
+
         localHome = file1.getPath();
 
         folderTitle = getIntent().getStringExtra("filename");
@@ -239,7 +243,7 @@ public class FolderActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
 
         toolbar = findViewById(R.id.folder_toolbar);
-        toolbar.setTitle(folderTitle);
+        toolbar.setTitle("Files in Storage");
         setSupportActionBar(toolbar);
 
         listview = findViewById(R.id.names_ftpfiles_list_view);
@@ -261,7 +265,7 @@ public class FolderActivity extends AppCompatActivity {
                     AlertDialog.Builder alert = new AlertDialog.Builder(FolderActivity.this);
                     alert.setTitle("Operation in progress").setMessage("You have an operation in progress\n，\n" +
                             "Cannot perform the operation.");
-                    alert.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                         }
@@ -334,7 +338,7 @@ public class FolderActivity extends AppCompatActivity {
                     alert.setTitle("Operation in progress").setMessage("\n" +
                             "You have an operation in progress，\n" +
                             "Cannot perform the operation.");
-                    alert.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                         }
@@ -422,7 +426,7 @@ public class FolderActivity extends AppCompatActivity {
                     }
                 });
                 digGeneral.setNeutralButton("\n" +
-                        "cover", new DialogInterface.OnClickListener() {
+                        "Replace", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
                         new downloadThread().start();
@@ -463,14 +467,21 @@ public class FolderActivity extends AppCompatActivity {
     }
 
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        menu.add(0, UPLOAD,  0,  "upload files");
+//        menu.add(0, NEW_FILE, 1, "create a new file");
+//        menu.add(0, NEW_DIR,  2, "new folder");
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        menu.add(0, UPLOAD,  0,  "upload files");
-        menu.add(0, NEW_FILE, 1, "create a new file");
-        menu.add(0, NEW_DIR,  2, "new folder");
-
-        return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_upload, menu);
+        return true;
     }
 
     
@@ -505,85 +516,107 @@ public class FolderActivity extends AppCompatActivity {
                 }
             }).create().show();
         } else {
-            switch (id) {
-                case UPLOAD:
+            switch (item.getItemId()) {
+                case R.id.upload_image:
                     Intent intent = new Intent(FolderActivity.this, LocalHomeActivity.class);
                     intent.putExtra("title", "Please select the file to upload");
+                    intent.putExtra("type", "image");
                     startActivityForResult(intent, 0);
                     break;
 
-                case NEW_FILE:
-                    final View cusView = LayoutInflater.from(FolderActivity.this).inflate(R.layout.new_file, null);
-                    AlertDialog.Builder cusDia = new AlertDialog.Builder(FolderActivity.this);
-                    cusDia.setTitle("Create new file");
-                    cusDia.setView(cusView);
-
-                    cusDia.setPositiveButton("create", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            final EditText fileName = cusView.findViewById(R.id.fileName);
-                            final EditText fileNameSuffix = cusView.findViewById(R.id.fileNameSuffix);
-
-                            final String subPath = fileName.getText().toString().trim() + "." + fileNameSuffix.getText().toString().trim();
-                            Log.d(LOGTAG, subPath);
-
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        final File file = new File("/data" + Environment.getDataDirectory().getAbsolutePath()
-                                                + File.separator + getPackageName()
-                                                + File.separator +  "ftpupload" + File.separator
-                                                + subPath);
-                                        if (!file.exists()) {
-                                            file.createNewFile();
-                                        }
-
-                                        packageFile = file;
-
-                                        InitialActivity.client.upload(file, new MyUploadTransferListener());
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        handleHhowToast("Failed to create new file");
-                                    }
-                                }
-                            }).start();
-                        }
-                    });
-
-                    cusDia.create().show();
+                case R.id.upload_video:
+                    Intent intent2 = new Intent(FolderActivity.this, LocalHomeActivity.class);
+                    intent2.putExtra("title", "Please select the file to upload");
+                    intent2.putExtra("type", "video");
+                    startActivityForResult(intent2, 0);
                     break;
-                case NEW_DIR:
-                    final View cusView2 = LayoutInflater.from(FolderActivity.this).inflate(R.layout.new_folder, null);
-                    AlertDialog.Builder cusDia2 = new AlertDialog.Builder(FolderActivity.this);
-                    cusDia2.setTitle("Create new file");
-                    cusDia2.setView(cusView2);
 
-                    cusDia2.setPositiveButton("create", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            final EditText folderName = cusView2.findViewById(R.id.folderName);
-                            final String subPath = folderName.getText().toString().trim();
-
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        InitialActivity.client.createDirectory(subPath);
-                                        handleHhowToast("Create new folder successfully");
-
-                                        addListView(subPath, 0, true);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        handleHhowToast("Failed to create new folder");
-                                    }
-                                }
-                            }).start();
-                        }
-                    });
-
-                    cusDia2.create().show();
+                case R.id.upload_audio:
+                    Intent intent3 = new Intent(FolderActivity.this, LocalHomeActivity.class);
+                    intent3.putExtra("title", "Please select the file to upload");
+                    intent3.putExtra("type", "audio");
+                    startActivityForResult(intent3, 0);
                     break;
+
+                case R.id.upload_docs:
+                    Intent intent4 = new Intent(FolderActivity.this, LocalHomeActivity.class);
+                    intent4.putExtra("title", "Please select the file to upload");
+                    intent4.putExtra("type", "docs");
+                    startActivityForResult(intent4, 0);
+                    break;
+
+//                case NEW_FILE:
+//                    final View cusView = LayoutInflater.from(FolderActivity.this).inflate(R.layout.new_file, null);
+//                    AlertDialog.Builder cusDia = new AlertDialog.Builder(FolderActivity.this);
+//                    cusDia.setTitle("Create new file");
+//                    cusDia.setView(cusView);
+//
+//                    cusDia.setPositiveButton("create", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            final EditText fileName = cusView.findViewById(R.id.fileName);
+//                            final EditText fileNameSuffix = cusView.findViewById(R.id.fileNameSuffix);
+//
+//                            final String subPath = fileName.getText().toString().trim() + "." + fileNameSuffix.getText().toString().trim();
+//                            Log.d(LOGTAG, subPath);
+//
+//                            new Thread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    try {
+//                                        final File file = new File("/data" + Environment.getDataDirectory().getAbsolutePath()
+//                                                + File.separator + getPackageName()
+//                                                + File.separator +  "ftpupload" + File.separator
+//                                                + subPath);
+//                                        if (!file.exists()) {
+//                                            file.createNewFile();
+//                                        }
+//
+//                                        packageFile = file;
+//
+//                                        InitialActivity.client.upload(file, new MyUploadTransferListener());
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                        handleHhowToast("Failed to create new file");
+//                                    }
+//                                }
+//                            }).start();
+//                        }
+//                    });
+//
+//                    cusDia.create().show();
+//                    break;
+//                case NEW_DIR:
+//                    final View cusView2 = LayoutInflater.from(FolderActivity.this).inflate(R.layout.new_folder, null);
+//                    AlertDialog.Builder cusDia2 = new AlertDialog.Builder(FolderActivity.this);
+//                    cusDia2.setTitle("Create new file");
+//                    cusDia2.setView(cusView2);
+//
+//                    cusDia2.setPositiveButton("create", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            final EditText folderName = cusView2.findViewById(R.id.folderName);
+//                            final String subPath = folderName.getText().toString().trim();
+//
+//                            new Thread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    try {
+//                                        InitialActivity.client.createDirectory(subPath);
+//                                        handleHhowToast("Create new folder successfully");
+//
+//                                        addListView(subPath, 0, true);
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                        handleHhowToast("Failed to create new folder");
+//                                    }
+//                                }
+//                            }).start();
+//                        }
+//                    });
+//
+//                    cusDia2.create().show();
+//                    break;
                 default:
                     break;
             }

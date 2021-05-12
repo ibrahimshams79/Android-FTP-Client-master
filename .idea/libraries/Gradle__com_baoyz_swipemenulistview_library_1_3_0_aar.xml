@@ -1,10 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.baoyz.swipemenulistview:library:1.3.0@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../../../SOFTWARE/mobile/gradle-6.5/caches/transforms-1/files-1.1/library-1.3.0.aar/b4af77444ec12bc4761803eb6a058fff/res" />
+      <root url="jar://$PROJECT_DIR$/../../../SOFTWARE/mobile/gradle-6.5/caches/transforms-2/files-2.1/6d5760af96457f2889197ab3075c31a3/library-1.3.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../../../SOFTWARE/mobile/gradle-6.5/caches/transforms-2/files-2.1/6d5760af96457f2889197ab3075c31a3/library-1.3.0/res" />
       <root url="file://$PROJECT_DIR$/../../../SOFTWARE/mobile/gradle-6.5/caches/transforms-2/files-2.1/6d5760af96457f2889197ab3075c31a3/library-1.3.0/AndroidManifest.xml" />
-      <root url="jar://$PROJECT_DIR$/../../../SOFTWARE/mobile/gradle-6.5/caches/transforms-2/files-2.1/6d5760af96457f2889197ab3075c31a3/library-1.3.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$PROJECT_DIR$/../../../SOFTWARE/mobile/gradle-6.5/caches/modules-2/files-2.1/com.baoyz.swipemenulistview/library/1.3.0/7a1e635b160e85140862082d7a1ef20ed656a65/library-1.3.0-javadoc.jar!/" />

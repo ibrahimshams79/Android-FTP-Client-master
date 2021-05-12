@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android-FTP-Client-master.iml" filepath="$PROJECT_DIR$/.idea/modules/Android-FTP-Client-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Android-FTP-Client-master.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Android-FTP-Client-master.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TV9-FTP-Client-master.iml" filepath="$PROJECT_DIR$/.idea/modules/TV9-FTP-Client-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TV9-FTP-Client-master.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TV9-FTP-Client-master.app.iml" />
     </modules>
   </component>
 </project>

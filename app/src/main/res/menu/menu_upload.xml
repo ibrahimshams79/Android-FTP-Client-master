@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/upload_image"
+        android:icon="@drawable/ic_baseline_file_upload_24"
+        android:title="Upload Image"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/upload_video"
+        android:icon="@drawable/ic_outline_video_library_24"
+        android:title="Upload Image"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/upload_audio"
+        android:icon="@drawable/ic_outline_audiotrack_24"
+        android:title="Upload Image"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/upload_docs"
+        android:icon="@drawable/ic_docs_24"
+        android:title="Upload Image"
+        app:showAsAction="never" />
+</menu>

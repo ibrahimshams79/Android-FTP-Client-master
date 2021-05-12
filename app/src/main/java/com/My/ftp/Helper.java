@@ -1,4 +1,4 @@
-package com.tv9.ftp;
+package com.My.ftp;
 
 public class Helper {
     public static final int SHOW_TOAST = 1;

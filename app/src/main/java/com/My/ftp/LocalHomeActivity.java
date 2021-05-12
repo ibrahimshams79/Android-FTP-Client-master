@@ -1,4 +1,4 @@
-package com.tv9.ftp;
+package com.My.ftp;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
@@ -36,7 +35,7 @@ public class LocalHomeActivity extends AppCompatActivity {
     private List<HashMap<String,Object>> simpleAdptList;;
     private SimpleAdapter simpleAdapter;
 
-    private boolean isUploading = false;
+    private boolean isUploading = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,9 @@ public class LocalHomeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String uploadMessage = intent.getStringExtra("title");
+        String uploadFileType = intent.getStringExtra("type");
+//        Toast.makeText(LocalHomeActivity.this, uploadFileType, Toast.LENGTH_LONG).show();
+
         if (uploadMessage!= null && uploadMessage.contentEquals("Please select the file to upload")) {
             isUploading = true;
         }
@@ -89,17 +91,19 @@ public class LocalHomeActivity extends AppCompatActivity {
         int[] to = {R.id.cell_image, R.id.cell_name};
 
         simpleAdptList = new ArrayList<>();
-        File file2 = new File("/data" + getDataDirectory().getAbsolutePath()
-                + File.separator + getPackageName()
-                + File.separator + "ftpdownload");
+//        File file2 = new File("/data" + getDataDirectory().getAbsolutePath()
+//                + File.separator + getPackageName()
+//                + File.separator + "ftpdownload");
 
-        File file1 = new File(getExternalFilesDir("/"), "ftpdownload");
+//        File file1 = new File(getExternalFilesDir("/"), "ftpdownload");
+
+        File file1 = new File (String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
 
 //        Toast.makeText(LocalHomeActivity.this, file1.toString(), Toast.LENGTH_LONG).show();
 
-        if (!file1.exists()) {
-            file1.mkdirs();
-        }
+//        if (!file1.exists()) {
+//            file1.mkdirs();
+//        }
 
         //
         //Traverse the local file array, judge the file format by the suffix name, and display different file format icons
@@ -147,8 +151,9 @@ public class LocalHomeActivity extends AppCompatActivity {
 //                        + File.separator + getPackageName()
 //                        + File.separator + "ftpdownload" + File.separator + filename;
 
-                File file1 = new File(getExternalFilesDir("/"), "ftpdownload");
-                String filePath = file1.getPath();
+//                File file1 = new File(getExternalFilesDir("/"), "ftpdownload");
+                File file1 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                String filePath = file1.getPath() + File.separator + filename;
 
 //                Toast.makeText(LocalHomeActivity.this, filePath, Toast.LENGTH_LONG).show();
                 if (isUploading) {
@@ -157,7 +162,7 @@ public class LocalHomeActivity extends AppCompatActivity {
                     intent.putExtra("filename", filename);
                     setResult(1, intent);
                     finish();
-
+//                    Toast.makeText(LocalHomeActivity.this, filePath, Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(LocalHomeActivity.this, TxtActivity.class);
                     if (filename.endsWith(".pdf")) {

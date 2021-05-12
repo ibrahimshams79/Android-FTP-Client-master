@@ -1,4 +1,4 @@
-package com.tv9.ftp;
+package com.My.ftp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
